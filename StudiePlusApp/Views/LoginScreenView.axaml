@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:CompileBindings="False"
+			 x:Class="StudiePlusApp.Views.LoginScreenView">
+	<Grid>
+		<StackPanel Margin="20" Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<TextBlock Text="Login" FontSize="24" HorizontalAlignment="Center" />
+
+			<TextBox Watermark="Username" Text="{Binding Username}" Width="200"/>
+			<TextBox Watermark="Password" Text="{Binding Password}" PasswordChar="•" Width="200"/>
+
+			<Button Content="Login" Command="{Binding LoginCommand}" Width="200"/>
+		</StackPanel>
+	</Grid>
+</UserControl>
