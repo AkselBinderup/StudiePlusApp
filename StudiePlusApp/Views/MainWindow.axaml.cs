@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using StudiePlusApp.ViewModels;
 
 namespace StudiePlusApp.Views
 {
@@ -7,6 +8,9 @@ namespace StudiePlusApp.Views
         public MainWindow()
         {
             InitializeComponent();
+            Width = 393;
+            Height = 600;
+            DataContext = App.GetService<MainWindowViewModel>();
         }
     }
 }

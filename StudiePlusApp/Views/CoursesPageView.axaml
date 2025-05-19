@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 x:CompileBindings="False" 
+			 d:DesignWidth="393" 
+			 d:DesignHeight="802"
+             x:Class="StudiePlusApp.Views.CoursesPageView">
+	<StackPanel Margin="20" Spacing="15">
+		<TextBlock Text="Courses" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+		<ItemsControl ItemsSource="{Binding Courses}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<TextBlock Text="{Binding Name}" FontSize="18"/>
+						<TextBlock Text="{Binding Instructor}" FontSize="14" Foreground="Gray"/>
+					</StackPanel>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</StackPanel>
+</UserControl>

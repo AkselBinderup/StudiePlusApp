@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 x:CompileBindings="False"
+			 d:DesignWidth="393" 
+			 d:DesignHeight="852"
+             x:Class="StudiePlusApp.Views.HomePageView"
+			 xmlns:views="clr-namespace:StudiePlusApp.Views">
+	<Grid RowDefinitions="*,Auto,Auto">
+
+		<ContentControl Grid.Row="0"
+						Name="MainContent"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Content="{Binding ChosenView}"/>
+		
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+			<Button Content="Schedule" Command="{Binding GoToScheduleCommand}" Margin="5"/>
+			<Button Content="Courses" Command="{Binding GoToCoursesCommand}" Margin="5"/>
+			<Button Content="Grades" Command="{Binding GoToGradesCommand}" Margin="5"/>
+			<Button Content="Messages" Command="{Binding GoToMessagesCommand}" Margin="5"/>
+			<Button Content="Absence" Command="{Binding GoToAbsenceCausesCommand}" Margin="5"/>
+		</StackPanel>
+		
+		<views:FunctionLineView Grid.Row="2"/>
+	</Grid>
+</UserControl>

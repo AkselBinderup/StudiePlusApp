@@ -5,11 +5,11 @@ using StudiePlusApp.ViewModels;
 
 namespace StudiePlusApp.Views;
 
-public partial class LoginScreenView : UserControl
+public partial class HomePageView : UserControl
 {
-    public LoginScreenView()
+    public HomePageView()
     {
         InitializeComponent();
-        DataContext = App.GetService<LoginScreenViewModel>();
+        DataContext = App.GetService<HomePageViewModel>();
     }
 }

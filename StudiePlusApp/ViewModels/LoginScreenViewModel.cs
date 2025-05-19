@@ -1,4 +1,8 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls;
+using ReactiveUI;
+using StudiePlusApp.Helpers;
+using StudiePlusApp.Models.Interfaces;
+using StudiePlusApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +30,7 @@ public class LoginScreenViewModel : ViewModelBase
     }
 
     public ReactiveCommand<Unit, Unit> LoginCommand { get; }
-
+    public ReactiveCommand<Unit, Unit> RegisterCommand { get; }
     public LoginScreenViewModel()
     {
         LoginCommand = ReactiveCommand.Create(Login);
@@ -34,6 +38,11 @@ public class LoginScreenViewModel : ViewModelBase
 
     private void Login()
     {
-        Console.WriteLine($"Logging in with {Username} / {Password}");
+        var store = new SecureUserStore();
+
+        bool isValid = store.Login(Username,Password);
+        if(isValid)
+        {
+        }
     }
 }

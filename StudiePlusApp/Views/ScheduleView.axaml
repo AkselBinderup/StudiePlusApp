@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="393" x:CompileBindings="False" d:DesignHeight="802"
+             x:Class="StudiePlusApp.Views.ScheduleView">
+
+	<StackPanel Orientation="Vertical" Margin="10">
+		<TextBlock Text="Uge 34" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
+			<TextBlock Text="M" Margin="5"/>
+			<TextBlock Text="T" Margin="5"/>
+			<TextBlock Text="O" Margin="5"/>
+			<TextBlock Text="T" Margin="5"/>
+			<TextBlock Text="F" Margin="5" FontWeight="Bold" Background="#5C95D2" Foreground="White" Padding="5"/>
+			<TextBlock Text="L" Margin="5"/>
+			<TextBlock Text="S" Margin="5"/>
+		</StackPanel>
+
+		<Grid ColumnDefinitions="*,*,*,*,*" Margin="0 0 0 5">
+			<TextBlock Text="Subject" FontWeight="Bold"/>
+			<TextBlock Text="Class" FontWeight="Bold" Grid.Column="1"/>
+			<TextBlock Text="Room" FontWeight="Bold" Grid.Column="2"/>
+			<TextBlock Text="Start" FontWeight="Bold" Grid.Column="3"/>
+			<TextBlock Text="End" FontWeight="Bold" Grid.Column="4"/>
+		</Grid>
+
+		<ListBox ItemsSource="{Binding Entries}" Height="500">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid ColumnDefinitions="*,*,*,*,*">
+						<TextBlock Text="{Binding Subject}"/>
+						<TextBlock Text="{Binding ClassCode}" Grid.Column="1"/>
+						<TextBlock Text="{Binding Room}" Grid.Column="2"/>
+						<TextBlock Text="{Binding StartTime}" Grid.Column="3"/>
+						<TextBlock Text="{Binding EndTime}" Grid.Column="4"/>
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</StackPanel>
+</UserControl>

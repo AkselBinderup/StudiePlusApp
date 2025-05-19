@@ -3,30 +3,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
+			 x:CompileBindings="False"
 			 d:DesignWidth="393" 
 			 d:DesignHeight="802"
-             x:CompileBindings="False"
-			 x:Class="StudiePlusApp.Views.LoginScreenView">
+             x:Class="StudiePlusApp.RegisterScreenView">
 	<Grid>
 		<StackPanel Margin="20" Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-			<TextBlock Text="Login" FontSize="24" HorizontalAlignment="Center" />
-
-			<TextBox Watermark="Username" 
-					 Text="{Binding Username}" 
-					 Width="200"/>
-			<TextBox Watermark="Password" 
-					 Text="{Binding Password}" 
-					 PasswordChar="•" 
-					 Width="200"/>
+			<TextBlock Text="Register" FontSize="24" HorizontalAlignment="Center" />
+			<TextBox Watermark="Username" Text="{Binding Username}" Width="200"/>
+			<TextBox Watermark="Email" Text="{Binding Email}" Width="200"/>
+			<TextBox Watermark="Password" Text="{Binding Password}" PasswordChar="•" Width="200"/>
+			<TextBox Watermark="Confirm Password" Text="{Binding ConfirmPassword}" PasswordChar="•" Width="200"/>
 			<Grid ColumnDefinitions="*,*">
-				<Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Register"
-				Command="{Binding DataContext.GoToRegisterCommand, 
+				<Button 
+						HorizontalAlignment="Stretch"
+					Content="Back to Login"
+				Command="{Binding DataContext.GoToLoginCommand, 
 				RelativeSource={RelativeSource AncestorType=UserControl, 
 				Mode=FindAncestor, AncestorLevel=2}}" />
 				<Button Grid.Column="1"
-					Content="Login" 
 						HorizontalAlignment="Stretch"
-						Command="{Binding LoginCommand}" 
+					Content="Register" 
+						Command="{Binding RegisterCommand}" 
 						/>
 
 			</Grid>
