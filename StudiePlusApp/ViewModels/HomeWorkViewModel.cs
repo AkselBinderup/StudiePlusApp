@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Media;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,28 +9,50 @@ using System.Threading.Tasks;
 namespace StudiePlusApp.ViewModels;
 public class HomeWorkViewModel : ViewModelBase
 {
-    public ObservableCollection<HomeworkItem> HomeworkItems { get; }
+    public ObservableCollection<HomeworkModel> Homeworks { get; } = new();
 
     public HomeWorkViewModel()
     {
-        HomeworkItems = new ObservableCollection<HomeworkItem>
+        // Testdata – kan hentes fra en database senere
+        Homeworks.Add(new HomeworkModel
         {
-            new HomeworkItem("Matematik", "Klar opgave 431-435", DateTime.Now.AddDays(1)),
-            new HomeworkItem("Engelsk", "Skriv en bograpport om bogen 'Romeo and Juliet'", DateTime.Now.AddDays(3)),
-            new HomeworkItem("Fysik", "Lav opgave 5.3.1 i Orbit B", DateTime.Now.AddDays(2))
-        };
+            Title = "Læs kapitel 4 i 'Et Dukkehjem'",
+            Description = "Forbered analyse og noter til diskussion i timen.",
+            DueDate = DateTime.Today.AddDays(1),
+            Subject = "Dansk",
+            IsCompleted = false
+        });
+
+        Homeworks.Add(new HomeworkModel
+        {
+            Title = "Aflever opgave 5",
+            Description = "Opgave om sandsynlighedsregning. Upload som PDF.",
+            DueDate = DateTime.Today.AddDays(3),
+            Subject = "Matematik",
+            IsCompleted = false
+        });
+
+        Homeworks.Add(new HomeworkModel
+        {
+            Title = "Essay om kolonialisme",
+            Description = "Minimum 500 ord. Afleveres på Aula.",
+            DueDate = DateTime.Today.AddDays(-1),
+            Subject = "Historie",
+            IsCompleted = true
+        });
     }
 }
-public class HomeworkItem
+public class HomeworkModel
 {
-    public string Subject { get; }
-    public string Description { get; }
-    public DateTime DueDate { get; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public DateTime DueDate { get; set; }
+    public string Subject { get; set; }
+    public bool IsCompleted { get; set; }
 
-    public HomeworkItem(string subject, string description, DateTime dueDate)
-    {
-        Subject = subject;
-        Description = description;
-        DueDate = dueDate;
-    }
+    public string Status => IsCompleted ? "Afleveret" : (DueDate < DateTime.Today ? "For sent!" : "Afventer");
+
+    public IBrush StatusColor =>
+        IsCompleted ? Brushes.Green :
+        (DueDate < DateTime.Today ? Brushes.Red : Brushes.Orange);
 }

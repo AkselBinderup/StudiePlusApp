@@ -1,5 +1,7 @@
 ﻿using ReactiveUI;
 using StudiePlusApp.Models;
+using StudiePlusApp.Models.Interfaces;
+using StudiePlusApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,50 +13,78 @@ using System.Threading.Tasks;
 namespace StudiePlusApp.ViewModels;
 public class AbsenceCausePageViewModel : ViewModelBase
 {
-    public ObservableCollection<string> AbsenceTypes { get; } = new()
-    {
-        "Syg",
-        "Familie",
-        "Læge",
-        "Personlig årsag",
-        "Andet"
-    };
+    private readonly INavigationService _nav;
 
-    private string _selectedAbsenceType;
-    public string SelectedAbsenceType
+    public AbsenceCausePageViewModel(INavigationService nav)
     {
-        get => _selectedAbsenceType;
-        set => this.RaiseAndSetIfChanged(ref _selectedAbsenceType, value);
+        _nav = nav;
+
+        var canSubmit = this.WhenAnyValue(
+            x => x.Reason,
+            x => x.StartDate,
+            x => x.EndDate,
+            (r, s, e) =>
+                !string.IsNullOrWhiteSpace(r) &&
+                s != null && e != null &&
+                e >= s);
+
+        CanSubmit = canSubmit;
+
+        SubmitCommand = ReactiveCommand.Create(Submit, canSubmit);
     }
 
-    private string _description;
-    public string Description
+    private string _reason;
+    private string _notes;
+    private DateTimeOffset? _startDate = DateTimeOffset.Now;
+    private DateTimeOffset? _endDate = DateTimeOffset.Now;
+    private string _error;
+
+    public string Reason
     {
-        get => _description;
-        set => this.RaiseAndSetIfChanged(ref _description, value);
+        get => _reason;
+        set => this.RaiseAndSetIfChanged(ref _reason, value);
     }
 
-    private string _statusMessage;
-    public string StatusMessage
+    public string Notes
     {
-        get => _statusMessage;
-        set => this.RaiseAndSetIfChanged(ref _statusMessage, value);
+        get => _notes;
+        set => this.RaiseAndSetIfChanged(ref _notes, value);
     }
+
+    public DateTimeOffset? StartDate
+    {
+        get => _startDate;
+        set => this.RaiseAndSetIfChanged(ref _startDate, value);
+    }
+
+    public DateTimeOffset? EndDate
+    {
+        get => _endDate;
+        set => this.RaiseAndSetIfChanged(ref _endDate, value);
+    }
+
+    public string Error
+    {
+        get => _error;
+        set => this.RaiseAndSetIfChanged(ref _error, value);
+    }
+
+    public IObservable<bool> CanSubmit { get; }
 
     public ReactiveCommand<Unit, Unit> SubmitCommand { get; }
 
-    public AbsenceCausePageViewModel()
+    private void Submit()
     {
-        SubmitCommand = ReactiveCommand.Create(SubmitAbsence, 
-            this.WhenAnyValue(x => x.SelectedAbsenceType, x => !string.IsNullOrWhiteSpace(x)));
+        // Normally you'd send this to a server or save it
+        if (StartDate > EndDate)
+        {
+            Error = "Slutdato skal være efter startdato.";
+            return;
+        }
 
-        StatusMessage = "";
-    }
+        Error = string.Empty;
 
-    private void SubmitAbsence()
-    {
-        StatusMessage = $"Fravær '{SelectedAbsenceType}' angivet: {DateTime.Now:HH:mm}.";
-        Description = "";
-        SelectedAbsenceType = null;
+        Console.WriteLine($"Fravær indskrevet: {Reason} fra {StartDate} til {EndDate}.");
+        _nav.NavigateTo<AbsenceCausePageView>();  
     }
 }

@@ -7,21 +7,33 @@
 			 d:DesignHeight="802"
              x:CompileBindings="False"
 			 x:Class="StudiePlusApp.Views.GradesPageView">
-	<StackPanel Margin="20">
-		<TextBlock Text="Your Grades" FontSize="24" FontWeight="Bold" Margin="0 0 0 10"/>
+	<Border Padding="20" Width="360">
+		<DockPanel>
+			<TextBlock Text="Karakteroversigt" 
+					   FontSize="24"
+					   FontWeight="Bold" 
+					   DockPanel.Dock="Top" 
+						Margin="0 0 0 20"/>
 
-		<ItemsControl ItemsSource="{Binding Grades}">
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Border BorderBrush="Gray" BorderThickness="1" Padding="10" Margin="0 0 0 5">
-						<StackPanel Orientation="Horizontal" Spacing="10">
-							<TextBlock Text="{Binding Subject}" FontWeight="Bold"/>
-							<TextBlock Text=":"/>
-							<TextBlock Text="{Binding Grade}"/>
-						</StackPanel>
-					</Border>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-	</StackPanel>
+			<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10">
+				<TextBlock Text="Gennemsnit: " FontWeight="SemiBold"/>
+				<TextBlock Text="{Binding AverageGrade}" Foreground="DarkGreen" FontWeight="Bold"/>
+			</StackPanel>
+
+			<ItemsControl ItemsSource="{Binding Grades}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border Margin="0 0 0 10" Padding="10" Background="#F7F7F7" CornerRadius="8">
+							<Grid ColumnDefinitions="2*,1*,1*">
+								<TextBlock Text="{Binding Subject}" FontSize="16" FontWeight="SemiBold"/>
+								<TextBlock Text="{Binding Grade}" Grid.Column="1" HorizontalAlignment="Center" FontSize="16" />
+								<TextBlock Text="{Binding Teacher}" Grid.Column="2" HorizontalAlignment="Right" FontSize="14" Foreground="Gray" />
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</DockPanel>
+	</Border>
+	
 </UserControl>

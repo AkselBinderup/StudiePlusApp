@@ -40,12 +40,17 @@ namespace StudiePlusApp
         }
         private void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<INavigationService>(provider => new NavigationService(provider));
+     
 
+            services.AddSingleton<INavigationService, NavigationService>();
+
+            services.AddTransient<HomePageView>();
+            services.AddTransient<HomePageViewModel>();
             services.AddSingleton<MainWindowViewModel>();
 
             services.AddTransient<AbsenceCausePageView>();
-            services.AddTransient<AbsenceCausePageViewModel>();
+            services.AddTransient<AbsenceCausePageViewModel>(sp =>
+                new AbsenceCausePageViewModel(sp.GetRequiredService<INavigationService>()));
 
             services.AddTransient<CoursesPageView>();
             services.AddTransient<CoursesPageViewModel>();
@@ -56,14 +61,13 @@ namespace StudiePlusApp
             services.AddTransient<GradesPageView>();
             services.AddTransient<GradesPageViewModel>();
 
-            services.AddTransient<HomePageView>();
-            services.AddTransient<HomePageViewModel>();
 
             services.AddTransient<HomeWorkView>();
             services.AddTransient<HomeWorkViewModel>();
 
             services.AddTransient<LoginScreenView>();
-            services.AddTransient<LoginScreenViewModel>();
+            services.AddTransient<LoginScreenViewModel>(sp =>
+                new LoginScreenViewModel(sp.GetRequiredService<INavigationService>()));
 
             services.AddTransient<MessagePageView>();
             services.AddTransient<MessagesPageViewModel>();

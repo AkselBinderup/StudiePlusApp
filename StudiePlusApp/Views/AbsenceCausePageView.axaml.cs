@@ -10,13 +10,6 @@ public partial class AbsenceCausePageView : UserControl
     public AbsenceCausePageView()
     {
         InitializeComponent();
-        if (Design.IsDesignMode)
-        {
-            DataContext = new AbsenceCausePageViewModel();
-        }
-        else
-        {
-            DataContext = App.GetService<AbsenceCausePageViewModel>();
-        }
+        DataContext = App.GetService<AbsenceCausePageViewModel>();
     }
 }

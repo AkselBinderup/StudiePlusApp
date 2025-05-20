@@ -20,39 +20,32 @@ public class HomePageViewModel : ViewModelBase
         get => _chosenView;
         set => this.RaiseAndSetIfChanged(ref _chosenView, value);
     }
-    public ReactiveCommand<Unit, UserControl> GoToScheduleCommand { get; }
-    public ReactiveCommand<Unit, UserControl> GoToCoursesCommand { get; }
-    public ReactiveCommand<Unit, UserControl> GoToGradesCommand { get; }
-    public ReactiveCommand<Unit, UserControl> GoToMessagesCommand { get; }
-    public ReactiveCommand<Unit, UserControl> GoToAbsenceCausesCommand { get; }
-    public ReactiveCommand<Unit, UserControl> GoToLoginCommand { get; }
-    public ReactiveCommand<Unit, UserControl> GoToRegisterCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToScheduleCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToCoursesCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToGradesCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToMessagesCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToAbsenceCausesCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToLoginCommand { get; }
+    public ReactiveCommand<Unit, Unit> GoToRegisterCommand { get; }
     
 
 
     public HomePageViewModel(INavigationService nav)
     {
         _nav = nav;
-        ChosenView = _nav.NavigateTo<LoginScreenView>();
+        _nav.CurrentViewObservable
+            .Subscribe(view => ChosenView = (UserControl)view);
 
-        GoToLoginCommand = ReactiveCommand.Create(() =>
-            ChosenView = _nav.NavigateTo<LoginScreenView>());
+        _nav.NavigateTo<LoginScreenView>();
+        
+        GoToLoginCommand = ReactiveCommand.Create(() => _nav.NavigateTo<LoginScreenView>());
+        GoToRegisterCommand = ReactiveCommand.Create(() => _nav.NavigateTo<RegisterScreenView>());
+        GoToScheduleCommand = ReactiveCommand.Create(() => _nav.NavigateTo<ScheduleView>());
+        GoToCoursesCommand = ReactiveCommand.Create(() => _nav.NavigateTo<CoursesPageView>());
+        GoToGradesCommand = ReactiveCommand.Create(() =>  _nav.NavigateTo<GradesPageView>());
+        GoToMessagesCommand = ReactiveCommand.Create(() =>  _nav.NavigateTo<MessagePageView>());
+        GoToAbsenceCausesCommand = ReactiveCommand.Create(() =>  _nav.NavigateTo<AbsenceCausePageView>());
 
-        GoToRegisterCommand = ReactiveCommand.Create(() =>
-            ChosenView = _nav.NavigateTo<RegisterScreenView>());
-
-
-
-        GoToScheduleCommand = ReactiveCommand.Create(() => ChosenView = _nav.NavigateTo<ScheduleView>());
-        GoToCoursesCommand = ReactiveCommand.Create(() => ChosenView = _nav.NavigateTo<CoursesPageView>());
-        GoToGradesCommand = ReactiveCommand.Create(() => ChosenView = _nav.NavigateTo<GradesPageView>());
-        GoToMessagesCommand = ReactiveCommand.Create(() => ChosenView = _nav.NavigateTo<MessagePageView>());
-        GoToAbsenceCausesCommand = ReactiveCommand.Create(() => ChosenView = _nav.NavigateTo<AbsenceCausePageView>());
-    }
-
-    public void goToFirstPage()
-    {
-        _nav.NavigateTo<ScheduleView>();
     }
 
 }

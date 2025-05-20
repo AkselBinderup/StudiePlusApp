@@ -5,17 +5,51 @@
              mc:Ignorable="d" 
 			 d:DesignWidth="393" 
 			 d:DesignHeight="70"
+			 x:CompileBindings="False"
              x:Class="StudiePlusApp.Views.FunctionLineView">
-	<Grid ColumnDefinitions="*, *, *, *" 
-		
-		Background="#608cb4">
-			<Button CornerRadius="10" Background="White" Grid.Column="0" Height="50" Width="50" Margin="20"/>
-			<Button CornerRadius="10" Background="White" Grid.Column="1" Height="50" Width="50" Margin="20"/>
-			<Button CornerRadius="10" Background="White" Grid.Column="2" Height="50" Width="50" Margin="20"/>
-			<Button CornerRadius="10" Background="White" Grid.Column="3" Height="50" Width="50" Margin="20"/>
+	<Border Width="393" Height="70"	Background="#608cb4" CornerRadius="10" Margin="0,25,0,0">
+		<Grid ColumnDefinitions="*,*,*,*,*"
+        Background="#608cb4"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
 
+			<Button Grid.Column="0"
+					Content="Skema"
+					Command="{Binding GoToScheduleCommand}"
+					Background="White"
+					CornerRadius="10"
+					Margin="5"/>
 
+			<Button Grid.Column="1"
+					Content="Fag"
+					Command="{Binding GoToCoursesCommand}"
+					Background="White"
+					CornerRadius="10"
+					Margin="5"/>
 
-	</Grid>
+			<Button Grid.Column="2"
+					Content="Karakterer"
+					Command="{Binding GoToGradesCommand}"
+					Background="White"
+					CornerRadius="10"
+					Margin="5"/>
+
+			<Button Grid.Column="3"
+					Content="Beskeder"
+					Command="{Binding GoToMessagesCommand}"
+					Background="White"
+					CornerRadius="10"
+					Margin="5"/>
+
+			<Button Grid.Column="4"
+					Content="Fravær"
+					Command="{Binding GoToAbsenceCausesCommand}"
+					Background="White"
+					CornerRadius="10"
+					Margin="5"/>
+
+		</Grid>
+	</Border>
+	
 
 </UserControl>

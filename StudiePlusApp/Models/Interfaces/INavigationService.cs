@@ -10,6 +10,7 @@ namespace StudiePlusApp.Models.Interfaces;
 
 public interface INavigationService
 {
-    UserControl NavigateTo<T>() where T : UserControl;
-    void NavigateToViewModel<T>() where T : ViewModelBase;
+    object CurrentView { get; }
+    IObservable<object> CurrentViewObservable { get; }
+    void NavigateTo<T>() where T : UserControl;
 }

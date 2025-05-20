@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace StudiePlusApp.Models;
-public class Grade
+public class GradeModel
 {
-    public string CourseName { get; set; }
-    public double Score { get; set; }
-    public string LetterGrade => Score >= 90 ? "A" : (Score >= 80 ? "B" : (Score >= 70 ? "C" : "D"));
+    public string Subject { get; set; }
+    public int Grade { get; set; }  
+    public string Teacher { get; set; }
 }

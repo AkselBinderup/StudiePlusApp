@@ -14,6 +14,11 @@ namespace StudiePlusApp.ViewModels;
 
 public class LoginScreenViewModel : ViewModelBase
 {
+    private readonly INavigationService _nav;
+    public ReactiveCommand<Unit, Unit> LoginCommand { get; }
+    public ReactiveCommand<Unit, Unit> RegisterCommand { get; }
+
+
     private string _username;
     private string _password;
 
@@ -29,10 +34,11 @@ public class LoginScreenViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _password, value);
     }
 
-    public ReactiveCommand<Unit, Unit> LoginCommand { get; }
-    public ReactiveCommand<Unit, Unit> RegisterCommand { get; }
-    public LoginScreenViewModel()
+    public LoginScreenViewModel(INavigationService nav)
     {
+        _nav = nav;
+        //RegisterCommand = ReactiveCommand.Create(() => _homePage.ShowRegister());
+        //register command to change page in homeview. i dont know if its needed here????
         LoginCommand = ReactiveCommand.Create(Login);
     }
 
@@ -43,6 +49,9 @@ public class LoginScreenViewModel : ViewModelBase
         bool isValid = store.Login(Username,Password);
         if(isValid)
         {
+            _nav.NavigateTo<CoursesPageView>();
+            //If its a valid password i need it to switch page in homeviewmodel, like with the buttons i created in homeviewmodel
+            //but have in my login axaml...
         }
     }
 }

@@ -15,15 +15,9 @@
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
 						Content="{Binding ChosenView}"/>
-		
-		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-			<Button Content="Schedule" Command="{Binding GoToScheduleCommand}" Margin="5"/>
-			<Button Content="Courses" Command="{Binding GoToCoursesCommand}" Margin="5"/>
-			<Button Content="Grades" Command="{Binding GoToGradesCommand}" Margin="5"/>
-			<Button Content="Messages" Command="{Binding GoToMessagesCommand}" Margin="5"/>
-			<Button Content="Absence" Command="{Binding GoToAbsenceCausesCommand}" Margin="5"/>
-		</StackPanel>
-		
-		<views:FunctionLineView Grid.Row="2"/>
+		<TextBlock Grid.Row="1" Height="10"/>
+
+
+		<views:FunctionLineView Grid.Row="2" DataContext="{Binding}"/>
 	</Grid>
 </UserControl>
